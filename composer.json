@@ -1,0 +1,12 @@
+{
+    "require-dev": {
+        "phpspec/phpspec": "^2.3"
+    },
+    "config": {
+        "bin-dir": "bin"
+    },
+    "autoload": {
+	"psr-4": {"JOR//": "src"}
+    }
+
+}
