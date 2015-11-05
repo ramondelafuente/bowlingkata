@@ -32,10 +32,23 @@ class Frame
             throw new TooManyPins("Too Many Pins");
         }
 
-        if(is_null($this->firstRoll)) {
+        if (is_null($this->firstRoll)) {
             $this->firstRoll = $roll;
         } else {
             $this->secondRoll = $roll;
         }
+    }
+
+    public function isCompleted()
+    {
+        if (!is_null($this->secondRoll)) {
+            return true;
+        }
+
+        if ($this->firstRoll && $this->firstRoll->numberOfPins() === 10) {
+            return true;
+        }
+
+        return false;
     }
 }
