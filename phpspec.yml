@@ -1,0 +1,4 @@
+suites:
+    bowlingkata:
+        namespace: JOR
+        psr4_prefix: JOR
