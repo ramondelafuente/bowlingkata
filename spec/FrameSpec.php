@@ -2,9 +2,9 @@
 
 namespace spec\JOR;
 
+use JOR\Roll;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
-use JOR\Roll;
 
 class FrameSpec extends ObjectBehavior
 {
@@ -59,4 +59,23 @@ class FrameSpec extends ObjectBehavior
         $roll = new Roll(5);
         $this->shouldThrow('JOR\TooManyPins')->duringAddRoll($roll);
     }
+
+    function it_knows_when_its_not_completed()
+    {
+        $this->shouldNotBeCompleted();
+    }
+
+    function it_knows_when_its_completed_with_no_more_rolls_left()
+    {
+        $this->addRoll(new Roll(3));
+        $this->addRoll(new Roll(3));
+        $this->shouldBeCompleted();
+    }
+
+    function it_knows_when_its_completed_with_a_strike()
+    {
+        $this->addRoll(new Roll(10));
+        $this->shouldBeCompleted();
+    }
+
 }
