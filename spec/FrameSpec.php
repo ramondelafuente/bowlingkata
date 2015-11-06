@@ -78,4 +78,49 @@ class FrameSpec extends ObjectBehavior
         $this->shouldBeCompleted();
     }
 
+    function it_calculates_its_pincount_on_empty()
+    {
+        $this->pinCount()->shouldReturn(0);
+    }
+
+    function it_calculates_its_pincount_on_single_roll()
+    {
+        $roll = new Roll(10);
+
+        $this->addRoll($roll);
+        $this->pinCount()->shouldReturn($roll->numberOfPins());
+    }
+
+    function it_calculates_its_pincount_on_double_roll()
+    {
+        $roll1 = new Roll(3);
+        $roll2 = new Roll(4);
+
+        $this->addRoll($roll1);
+        $this->addRoll($roll2);
+        $this->pinCount()->shouldReturn($roll1->numberOfPins() + $roll2->numberOfPins());
+    }
+
+    function it_knows_when_its_a_strike()
+    {
+        $this->addRoll(new Roll(10));
+        $this->shouldBeStrike();
+    }
+
+    function it_knows_when_its_not_a_strike()
+    {
+        $this->addRoll(new Roll(4));
+        $this->shouldNotBeStrike();
+
+        $this->addRoll(new Roll(6));
+        $this->shouldNotBeStrike();
+    }
+
+    function it_knows_when_its_a_spare()
+    {
+        $this->addRoll(new Roll(4));
+        $this->addRoll(new Roll(6));
+        $this->shouldBeSpare();
+    }
+
 }
